@@ -60,6 +60,11 @@
                 My Certificates
             </a>
 
+            <a href="{{ route('student.payments.index') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors {{ request()->routeIs('student.payments.*') ? 'bg-indigo-600 text-white font-semibold shadow-sm' : 'text-slate-300 hover:bg-slate-800 hover:text-white' }}">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
+                Payment History
+            </a>
+
             <div class="pt-4 pb-2">
                 <p class="px-3 text-[10px] uppercase font-bold text-slate-500 tracking-wider">Explore</p>
             </div>

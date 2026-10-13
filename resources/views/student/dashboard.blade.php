@@ -132,5 +132,97 @@
             </div>
         @endif
     </div>
+
+    <!-- Recent Payments & Invoices -->
+    <div class="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-xs">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
+            <div>
+                <h3 class="text-base font-bold text-slate-900">Recent Payments & Invoices</h3>
+                <p class="text-xs text-slate-500">Track your course purchases, transaction IDs, and download official receipts.</p>
+            </div>
+            <div class="flex items-center gap-3">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-indigo-50 text-indigo-700">
+                    Total Invested: ৳{{ number_format($totalInvested, 2) }}
+                </span>
+                <a href="{{ route('student.payments.index') }}" class="text-xs font-bold text-indigo-600 hover:underline">
+                    View All ({{ $recentOrders->count() }}) →
+                </a>
+            </div>
+        </div>
+
+        @if($recentOrders->isEmpty())
+            <div class="py-8 text-center max-w-sm mx-auto">
+                <div class="w-10 h-10 rounded-xl bg-slate-100 text-slate-400 flex items-center justify-center mx-auto mb-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
+                </div>
+                <p class="text-xs font-medium text-slate-500">No payment transactions recorded yet.</p>
+            </div>
+        @else
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs text-slate-600">
+                    <thead class="bg-slate-50 text-slate-700 uppercase font-bold text-[10px] tracking-wider border-b border-slate-100">
+                        <tr>
+                            <th class="py-3 px-4">Invoice / Order</th>
+                            <th class="py-3 px-4">Course(s)</th>
+                            <th class="py-3 px-4">Amount</th>
+                            <th class="py-3 px-4">Method / TrxID</th>
+                            <th class="py-3 px-4">Status</th>
+                            <th class="py-3 px-4">Date</th>
+                            <th class="py-3 px-4 text-right">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        @foreach($recentOrders as $order)
+                            <tr class="hover:bg-slate-50/80 transition-colors">
+                                <td class="py-3.5 px-4 font-bold text-slate-900">
+                                    <a href="{{ route('student.payments.show', $order) }}" class="text-indigo-600 hover:underline font-mono">
+                                        #{{ $order->order_number }}
+                                    </a>
+                                </td>
+                                <td class="py-3.5 px-4">
+                                    <div class="max-w-xs truncate font-medium text-slate-800">
+                                        @foreach($order->items as $item)
+                                            <span>{{ $item->course->title ?? 'Course' }}</span>@if(!$loop->last), @endif
+                                        @endforeach
+                                    </div>
+                                </td>
+                                <td class="py-3.5 px-4 font-black text-slate-900">
+                                    ৳{{ number_format($order->total_amount, 2) }}
+                                </td>
+                                <td class="py-3.5 px-4">
+                                    <div class="font-medium text-slate-800 uppercase">{{ $order->payment_method ?? 'Gateway' }}</div>
+                                    <div class="text-[10px] text-slate-400 font-mono">{{ $order->transaction_id ?? 'N/A' }}</div>
+                                </td>
+                                <td class="py-3.5 px-4">
+                                    @if($order->payment_status === 'paid')
+                                        <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                            ● Paid
+                                        </span>
+                                    @elseif($order->payment_status === 'pending')
+                                        <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-50 text-amber-700 border border-amber-200">
+                                            ● Pending
+                                        </span>
+                                    @else
+                                        <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-50 text-rose-700 border border-rose-200">
+                                            ● {{ ucfirst($order->payment_status) }}
+                                        </span>
+                                    @endif
+                                </td>
+                                <td class="py-3.5 px-4 text-slate-500 text-[11px] whitespace-nowrap">
+                                    {{ $order->created_at->format('M d, Y') }}
+                                </td>
+                                <td class="py-3.5 px-4 text-right whitespace-nowrap">
+                                    <a href="{{ route('student.payments.show', $order) }}" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-indigo-50 hover:text-indigo-600 text-slate-700 transition-colors">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                                        Receipt
+                                    </a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        @endif
+    </div>
 </div>
 @endsection

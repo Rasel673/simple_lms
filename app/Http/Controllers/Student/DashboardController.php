@@ -30,6 +30,14 @@ class DashboardController extends Controller
         $inProgressCoursesCount = $totalPurchased - $completedCoursesCount;
         $certificatesCount = $user->certificates()->count();
 
+        // Orders & Payment History summary
+        $recentOrders = $user->orders()
+            ->with(['items.course'])
+            ->latest()
+            ->take(5)
+            ->get();
+        $totalInvested = (float) $user->orders()->where('payment_status', 'paid')->sum('total_amount');
+
         // Attach progress details to each course
         $coursesWithProgress = $enrollments->map(function ($enrollment) use ($user) {
             $progressData = $this->progressService->getCourseProgress($user->id, $enrollment->course_id);
@@ -45,7 +53,9 @@ class DashboardController extends Controller
             'completedCoursesCount',
             'inProgressCoursesCount',
             'certificatesCount',
-            'coursesWithProgress'
+            'coursesWithProgress',
+            'recentOrders',
+            'totalInvested'
         ));
     }
 }

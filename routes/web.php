@@ -23,6 +23,7 @@ use App\Http\Controllers\Student\CourseLearningController as StudentLearningCont
 use App\Http\Controllers\Student\DashboardController as StudentDashboardController;
 use App\Http\Controllers\Student\ExamController as StudentExamController;
 use App\Http\Controllers\Student\MyCoursesController as StudentMyCoursesController;
+use App\Http\Controllers\Student\PaymentHistoryController as StudentPaymentHistoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -106,6 +107,10 @@ Route::middleware('student')->prefix('student')->name('student.')->group(functio
     Route::get('/certificates', [StudentCertificateController::class, 'index'])->name('certificates.index');
     Route::get('/certificates/{certificate}', [StudentCertificateController::class, 'show'])->name('certificates.show');
     Route::get('/certificates/{certificate}/download', [StudentCertificateController::class, 'download'])->name('certificates.download');
+
+    // Payment History & Invoices
+    Route::get('/payments', [StudentPaymentHistoryController::class, 'index'])->name('payments.index');
+    Route::get('/payments/{order}', [StudentPaymentHistoryController::class, 'show'])->name('payments.show');
 });
 
 /*
