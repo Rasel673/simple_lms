@@ -31,12 +31,14 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
-Route::get('/courses/{slug}', [CourseController::class, 'show'])->name('courses.show');
+Route::get('/courses', fn() => redirect('/#courses-section'))->name('courses.index');
+Route::get('/courses/{slug}', fn($slug) => redirect('/?course=' . $slug . '#courses-section'))->name('courses.show');
 Route::get('/about', fn() => redirect('/#about-section'))->name('about');
 Route::get('/contact', fn() => redirect('/#contact-section'))->name('contact');
 Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
-Route::get('/verify-certificate/{number?}', [CertificateVerificationController::class, 'verify'])->name('certificate.verify');
+Route::get('/verify-certificate/{number?}', function ($number = null) {
+    return $number ? redirect('/?verify_number=' . $number . '#verify-section') : redirect('/#verify-section');
+})->name('certificate.verify');
 Route::get('/privacy-policy', [LegalController::class, 'privacy'])->name('legal.privacy');
 Route::get('/terms-and-conditions', [LegalController::class, 'terms'])->name('legal.terms');
 Route::get('/terms-conditions', fn() => redirect()->route('legal.terms'));

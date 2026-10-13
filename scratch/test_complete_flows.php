@@ -166,9 +166,13 @@ assertCondition("PDF certificate generated successfully as raw stream", !empty($
 echo "   Generated PDF size: " . strlen($pdfOutput) . " bytes\n";
 
 // Test Public Certificate Verification
-$verificationReq = Request::create('/verify-certificate/' . $certificate->certificate_number, 'GET');
+$verificationReq = \Illuminate\Http\Request::create('/verify-certificate/' . $certificate->certificate_number, 'GET');
 $verificationResp = $kernel->handle($verificationReq);
-assertCondition("Public certificate verification endpoint returns HTTP 200", $verificationResp->getStatusCode() === 200);
+assertCondition("Certificate route redirects to one-page verify section", $verificationResp->getStatusCode() === 302);
+
+$homeVerifyReq = \Illuminate\Http\Request::create('/?verify_number=' . $certificate->certificate_number, 'GET');
+$homeVerifyResp = $kernel->handle($homeVerifyReq);
+assertCondition("On-page certificate verification returns HTTP 200 with student name", $homeVerifyResp->getStatusCode() === 200 && str_contains($homeVerifyResp->getContent(), $student->name));
 
 // 8. Test Admin Panel Routes
 echo "\n--- Testing Admin Panel Security and Pages ---\n";

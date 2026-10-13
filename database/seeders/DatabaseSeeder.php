@@ -353,29 +353,27 @@ class DatabaseSeeder extends Seeder
             }
         }
 
-        // 6. Sliders
-        $sliders = [
-            [
-                'heading' => 'Master In-Demand Tech Skills Online',
-                'description' => 'Explore industry-crafted video courses, take interactive MCQ assessments, and earn verified certificates recognized by employers.',
-                'button_text' => 'Browse All Courses',
-                'button_url' => '#courses-section',
-                'order' => 1,
-                'is_active' => true,
-            ],
-            [
-                'heading' => 'Become a Certified Laravel Developer',
-                'description' => 'From fundamentals to enterprise architecture and payment gateways. Step up your development career with hands-on learning.',
-                'button_text' => 'View Laravel Masterclass',
-                'button_url' => url('/courses/' . $course1->slug),
-                'order' => 2,
-                'is_active' => true,
-            ],
-        ];
+        // 6. Sliders (Simple Background Image Banner with Nullable Text & Link)
+        Slider::truncate();
+        Slider::create([
+            'image' => 'sliders/banner1.jpg',
+            'heading' => 'Master In-Demand Tech Skills Online',
+            'description' => 'Explore industry-crafted video courses, take interactive MCQ assessments, and earn verified certificates.',
+            'button_text' => 'Browse All Courses',
+            'button_url' => '#courses-section',
+            'order' => 1,
+            'is_active' => true,
+        ]);
 
-        foreach ($sliders as $slide) {
-            Slider::firstOrCreate(['heading' => $slide['heading']], $slide);
-        }
+        Slider::create([
+            'image' => 'sliders/banner2.jpg',
+            'heading' => null, // Pure background image banner demonstration
+            'description' => null,
+            'button_text' => null,
+            'button_url' => '#courses-section', // Optional link
+            'order' => 2,
+            'is_active' => true,
+        ]);
 
         // 7. Website Settings
         $settings = [

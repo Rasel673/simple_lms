@@ -45,7 +45,7 @@ class WebsiteContentController extends Controller
     public function storeSlider(Request $request)
     {
         $data = $request->validate([
-            'heading' => ['required', 'string', 'max:255'],
+            'heading' => ['nullable', 'string', 'max:255'],
             'description' => ['nullable', 'string', 'max:500'],
             'button_text' => ['nullable', 'string', 'max:50'],
             'button_url' => ['nullable', 'string', 'max:255'],
@@ -63,7 +63,7 @@ class WebsiteContentController extends Controller
     public function updateSlider(Request $request, Slider $slider)
     {
         $data = $request->validate([
-            'heading' => ['required', 'string', 'max:255'],
+            'heading' => ['nullable', 'string', 'max:255'],
             'description' => ['nullable', 'string', 'max:500'],
             'button_text' => ['nullable', 'string', 'max:50'],
             'button_url' => ['nullable', 'string', 'max:255'],

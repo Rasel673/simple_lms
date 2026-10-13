@@ -24,28 +24,29 @@
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div class="sm:col-span-2">
-                    <label class="block text-xs font-bold text-slate-700 mb-1.5">Slide Heading *</label>
-                    <input type="text" name="heading" required placeholder="e.g. Master In-Demand Web Development Skills" class="w-full text-xs rounded-xl border-slate-200 bg-slate-50 focus:bg-white focus:border-indigo-500 focus:ring-indigo-500 py-2.5 px-3">
+                    <label class="block text-xs font-bold text-slate-700 mb-1.5">Background Image *</label>
+                    <input type="file" name="image" accept="image/*" class="w-full text-xs rounded-xl border-slate-200 bg-slate-50 py-2 px-3">
+                    <p class="text-[11px] text-slate-400 mt-1">Recommended: 1920x600 or 1200x500 banner image. Sliders can be purely visual background images.</p>
                 </div>
 
                 <div class="sm:col-span-2">
-                    <label class="block text-xs font-bold text-slate-700 mb-1.5">Short Description</label>
-                    <textarea name="description" rows="2" placeholder="Brief overview of featured programs..." class="w-full text-xs rounded-xl border-slate-200 bg-slate-50 focus:bg-white focus:border-indigo-500 focus:ring-indigo-500 py-2.5 px-3"></textarea>
+                    <label class="block text-xs font-bold text-slate-700 mb-1.5">Slide Heading (Optional)</label>
+                    <input type="text" name="heading" placeholder="Leave blank for pure background image banner" class="w-full text-xs rounded-xl border-slate-200 bg-slate-50 focus:bg-white focus:border-indigo-500 focus:ring-indigo-500 py-2.5 px-3">
+                </div>
+
+                <div class="sm:col-span-2">
+                    <label class="block text-xs font-bold text-slate-700 mb-1.5">Short Description (Optional)</label>
+                    <textarea name="description" rows="2" placeholder="Optional brief subtitle overlay..." class="w-full text-xs rounded-xl border-slate-200 bg-slate-50 focus:bg-white focus:border-indigo-500 focus:ring-indigo-500 py-2.5 px-3"></textarea>
                 </div>
 
                 <div>
-                    <label class="block text-xs font-bold text-slate-700 mb-1.5">Call to Action Button Text</label>
+                    <label class="block text-xs font-bold text-slate-700 mb-1.5">Button Text (Optional)</label>
                     <input type="text" name="button_text" placeholder="e.g. Browse Courses" class="w-full text-xs rounded-xl border-slate-200 bg-slate-50 focus:bg-white focus:border-indigo-500 focus:ring-indigo-500 py-2.5 px-3">
                 </div>
 
                 <div>
-                    <label class="block text-xs font-bold text-slate-700 mb-1.5">Button URL Link</label>
-                    <input type="text" name="button_url" placeholder="#courses-section or /courses" class="w-full text-xs rounded-xl border-slate-200 bg-slate-50 focus:bg-white focus:border-indigo-500 focus:ring-indigo-500 py-2.5 px-3">
-                </div>
-
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 mb-1.5">Background / Feature Image (Optional)</label>
-                    <input type="file" name="image" accept="image/*" class="w-full text-xs rounded-xl border-slate-200 bg-slate-50 py-2 px-3">
+                    <label class="block text-xs font-bold text-slate-700 mb-1.5">Button URL Link (Optional)</label>
+                    <input type="text" name="button_url" placeholder="#courses-section or /#courses-section" class="w-full text-xs rounded-xl border-slate-200 bg-slate-50 focus:bg-white focus:border-indigo-500 focus:ring-indigo-500 py-2.5 px-3">
                 </div>
 
                 <div>
@@ -73,14 +74,22 @@
                 @foreach($sliders as $slide)
                     <div class="flex items-center justify-between p-4 rounded-2xl border border-slate-100 bg-slate-50 gap-4">
                         <div class="flex items-center gap-4 min-w-0">
-                            <span class="w-7 h-7 rounded-lg bg-slate-200 text-slate-700 font-bold text-xs flex items-center justify-center shrink-0">
-                                {{ $slide->order }}
-                            </span>
+                            @if($slide->image)
+                                <img src="{{ asset('storage/' . $slide->image) }}" alt="Slide" class="w-16 h-10 object-cover rounded-lg border border-slate-200 shrink-0">
+                            @else
+                                <div class="w-16 h-10 bg-slate-200 rounded-lg flex items-center justify-center text-[10px] text-slate-500 font-semibold shrink-0">
+                                    No Image
+                                </div>
+                            @endif
                             <div class="min-w-0">
-                                <h4 class="text-xs font-bold text-slate-900 truncate">{{ $slide->heading }}</h4>
-                                <p class="text-[11px] text-slate-500 line-clamp-1">{{ $slide->description }}</p>
+                                <h4 class="text-xs font-bold text-slate-900 truncate">
+                                    {{ $slide->heading ?: 'Background Image Slide #' . $slide->order }}
+                                </h4>
+                                @if($slide->description)
+                                    <p class="text-[11px] text-slate-500 line-clamp-1">{{ $slide->description }}</p>
+                                @endif
                                 @if($slide->button_url)
-                                    <span class="text-[10px] text-indigo-600 font-mono">{{ $slide->button_text }} → {{ $slide->button_url }}</span>
+                                    <span class="text-[10px] text-indigo-600 font-mono">{{ $slide->button_text ?: 'Link' }} → {{ $slide->button_url }}</span>
                                 @endif
                             </div>
                         </div>

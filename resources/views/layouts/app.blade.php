@@ -52,11 +52,11 @@
 
                 <!-- Desktop Navigation Links -->
                 <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-600">
-                    <a href="{{ route('home') }}" class="hover:text-indigo-600 transition-colors {{ request()->routeIs('home') ? 'text-indigo-600 font-semibold' : '' }}">Home</a>
-                    <a href="{{ route('courses.index') }}" class="hover:text-indigo-600 transition-colors {{ request()->routeIs('courses.*') ? 'text-indigo-600 font-semibold' : '' }}">Courses</a>
+                    <a href="{{ route('home') }}#hero-section" class="hover:text-indigo-600 transition-colors">Home</a>
+                    <a href="{{ route('home') }}#courses-section" class="hover:text-indigo-600 transition-colors">Courses</a>
+                    <a href="{{ route('home') }}#verify-section" class="hover:text-indigo-600 transition-colors">Verify Certificate</a>
                     <a href="{{ route('home') }}#about-section" class="hover:text-indigo-600 transition-colors">About Us</a>
                     <a href="{{ route('home') }}#contact-section" class="hover:text-indigo-600 transition-colors">Contact Us</a>
-                    <a href="{{ route('certificate.verify') }}" class="hover:text-indigo-600 transition-colors {{ request()->routeIs('certificate.verify') ? 'text-indigo-600 font-semibold' : '' }}">Verify Certificate</a>
                 </nav>
 
                 <!-- Auth Buttons / User Menu -->
@@ -144,11 +144,11 @@
 
         <!-- Mobile Navigation Menu -->
         <div x-show="mobileMenuOpen" x-cloak class="md:hidden border-b border-slate-200 bg-white px-4 pt-2 pb-6 space-y-3">
-            <a href="{{ route('home') }}" class="block px-3 py-2 text-base font-medium text-slate-700 rounded-lg hover:bg-slate-50">Home</a>
-            <a href="{{ route('courses.index') }}" class="block px-3 py-2 text-base font-medium text-slate-700 rounded-lg hover:bg-slate-50">Courses</a>
-            <a href="{{ route('home') }}#about-section" class="block px-3 py-2 text-base font-medium text-slate-700 rounded-lg hover:bg-slate-50">About Us</a>
-            <a href="{{ route('home') }}#contact-section" class="block px-3 py-2 text-base font-medium text-slate-700 rounded-lg hover:bg-slate-50">Contact Us</a>
-            <a href="{{ route('certificate.verify') }}" class="block px-3 py-2 text-base font-medium text-slate-700 rounded-lg hover:bg-slate-50">Verify Certificate</a>
+            <a href="{{ route('home') }}#hero-section" @click="mobileMenuOpen = false" class="block px-3 py-2 text-base font-medium text-slate-700 rounded-lg hover:bg-slate-50">Home</a>
+            <a href="{{ route('home') }}#courses-section" @click="mobileMenuOpen = false" class="block px-3 py-2 text-base font-medium text-slate-700 rounded-lg hover:bg-slate-50">Courses</a>
+            <a href="{{ route('home') }}#verify-section" @click="mobileMenuOpen = false" class="block px-3 py-2 text-base font-medium text-slate-700 rounded-lg hover:bg-slate-50">Verify Certificate</a>
+            <a href="{{ route('home') }}#about-section" @click="mobileMenuOpen = false" class="block px-3 py-2 text-base font-medium text-slate-700 rounded-lg hover:bg-slate-50">About Us</a>
+            <a href="{{ route('home') }}#contact-section" @click="mobileMenuOpen = false" class="block px-3 py-2 text-base font-medium text-slate-700 rounded-lg hover:bg-slate-50">Contact Us</a>
 
             <div class="border-t border-slate-100 pt-3 space-y-2">
                 @auth
@@ -231,11 +231,11 @@
                 <div>
                     <h4 class="text-sm font-semibold text-white uppercase tracking-wider mb-4">Explore</h4>
                     <ul class="space-y-2.5 text-xs">
-                        <li><a href="{{ route('home') }}" class="hover:text-white transition-colors">Home</a></li>
-                        <li><a href="{{ route('courses.index') }}" class="hover:text-white transition-colors">All Courses</a></li>
-                        <li><a href="{{ route('certificate.verify') }}" class="hover:text-white transition-colors">Certificate Verification</a></li>
+                        <li><a href="{{ route('home') }}#hero-section" class="hover:text-white transition-colors">Home</a></li>
+                        <li><a href="{{ route('home') }}#courses-section" class="hover:text-white transition-colors">All Courses</a></li>
+                        <li><a href="{{ route('home') }}#verify-section" class="hover:text-white transition-colors">Verify Certificate</a></li>
                         <li><a href="{{ route('home') }}#about-section" class="hover:text-white transition-colors">About Academy</a></li>
-                        <li><a href="{{ route('home') }}#contact-section" class="hover:text-white transition-colors">Get in Touch</a></li>
+                        <li><a href="{{ route('home') }}#contact-section" class="hover:text-white transition-colors">Contact Us</a></li>
                     </ul>
                 </div>
 
