@@ -24,7 +24,44 @@ use App\Http\Controllers\Student\DashboardController as StudentDashboardControll
 use App\Http\Controllers\Student\ExamController as StudentExamController;
 use App\Http\Controllers\Student\MyCoursesController as StudentMyCoursesController;
 use App\Http\Controllers\Student\PaymentHistoryController as StudentPaymentHistoryController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
+
+/*
+|--------------------------------------------------------------------------
+| cPanel Setup & Maintenance Helper (For hosting without Terminal / SSH)
+|--------------------------------------------------------------------------
+*/
+Route::get('/cpanel-setup', function (\Illuminate\Http\Request $request) {
+    if ($request->query('token') !== 'setup_simple_lms_2026') {
+        abort(403, 'Unauthorized access: Invalid or missing token.');
+    }
+
+    $results = [];
+
+    // 1. Storage link
+    try {
+        Artisan::call('storage:link');
+        $results['storage:link'] = trim(Artisan::output()) ?: 'Storage link created successfully!';
+    } catch (\Throwable $e) {
+        $results['storage:link'] = 'Note: ' . $e->getMessage();
+    }
+
+    // 2. Clear application caches
+    try {
+        Artisan::call('optimize:clear');
+        $results['optimize:clear'] = trim(Artisan::output()) ?: 'All caches cleared successfully!';
+    } catch (\Throwable $e) {
+        $results['optimize:clear'] = 'Error: ' . $e->getMessage();
+    }
+
+    return response()->json([
+        'success' => true,
+        'message' => 'cPanel maintenance completed successfully!',
+        'tasks' => $results
+    ], 200, [], JSON_PRETTY_PRINT);
+});
+
 
 /*
 |--------------------------------------------------------------------------
