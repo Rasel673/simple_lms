@@ -40,7 +40,7 @@
             <label class="block text-xs font-bold text-slate-700 mb-1.5">Category Icon / Image</label>
             @if($category->image)
                 <div class="mb-2">
-                    <img src="{{ asset('storage/' . $category->image) }}" alt="{{ $category->name }}" class="w-16 h-16 object-cover rounded-xl border border-slate-200">
+                    <img src="{{ asset($category->image) }}" alt="{{ $category->name }}" class="w-16 h-16 object-cover rounded-xl border border-slate-200">
                 </div>
             @endif
             <input type="file" name="image" accept="image/*" class="w-full text-xs rounded-xl border-slate-200 bg-slate-50 py-2 px-3">

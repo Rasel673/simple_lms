@@ -1,0 +1,31 @@
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews -Indexes
+    </IfModule>
+
+    RewriteEngine On
+
+    # Keep Laravel's authorization and CSRF headers available to PHP.
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    RewriteCond %{HTTP:x-xsrf-token} .
+    RewriteRule .* - [E=HTTP_X_XSRF_TOKEN:%{HTTP:X-XSRF-Token}]
+
+    # Never expose application source, dependencies, or environment files.
+    RewriteRule ^(?:app|bootstrap|config|database|resources|routes|storage|tests|vendor)(?:/|$) - [F,L]
+    RewriteRule ^(?:\.env|composer\.(?:json|lock)|package(?:-lock)?\.json|phpunit\.xml|vite\.config\.(?:js|ts))(?:$|/) - [F,L]
+
+    # Serve files that belong to Laravel's public directory directly.
+    RewriteCond %{REQUEST_URI} !^/public(?:/|$)
+    RewriteCond %{DOCUMENT_ROOT}/public/$1 -f
+    RewriteRule ^(.+)$ public/$1 [L]
+
+    RewriteCond %{REQUEST_URI} !^/public(?:/|$)
+    RewriteCond %{DOCUMENT_ROOT}/public/$1 -d
+    RewriteRule ^(.+)$ public/$1 [L]
+
+    # Send all remaining requests to Laravel's front controller.
+    RewriteCond %{REQUEST_URI} !^/public(?:/|$)
+    RewriteRule ^ public/index.php [L]
+</IfModule>

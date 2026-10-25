@@ -55,7 +55,7 @@
                                 <div class="flex items-center gap-3">
                                     <div class="w-12 h-10 rounded-lg bg-slate-900 overflow-hidden shrink-0">
                                         @if($course->thumbnail)
-                                            <img src="{{ asset('storage/' . $course->thumbnail) }}" alt="{{ $course->title }}" class="w-full h-full object-cover">
+                                            <img src="{{ asset($course->thumbnail) }}" alt="{{ $course->title }}" class="w-full h-full object-cover">
                                         @else
                                             <div class="w-full h-full bg-indigo-900 flex items-center justify-center text-white text-[10px] font-bold">LMS</div>
                                         @endif

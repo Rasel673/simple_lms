@@ -75,7 +75,7 @@
                     <div class="flex items-center justify-between p-4 rounded-2xl border border-slate-100 bg-slate-50 gap-4">
                         <div class="flex items-center gap-4 min-w-0">
                             @if($slide->image)
-                                <img src="{{ asset('storage/' . $slide->image) }}" alt="Slide" class="w-16 h-10 object-cover rounded-lg border border-slate-200 shrink-0">
+                                <img src="{{ asset($slide->image) }}" alt="Slide" class="w-16 h-10 object-cover rounded-lg border border-slate-200 shrink-0">
                             @else
                                 <div class="w-16 h-10 bg-slate-200 rounded-lg flex items-center justify-center text-[10px] text-slate-500 font-semibold shrink-0">
                                     No Image

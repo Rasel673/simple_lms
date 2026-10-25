@@ -4,8 +4,8 @@ namespace App\Services;
 
 use App\Models\Slider;
 use App\Models\WebsiteSetting;
+use App\Support\PublicImageStorage;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\Storage;
 
 class WebsiteSettingService
 {
@@ -45,10 +45,8 @@ class WebsiteSettingService
         foreach ($files as $key => $file) {
             if ($file) {
                 $oldPath = WebsiteSetting::get($key);
-                if ($oldPath && Storage::disk('public')->exists($oldPath)) {
-                    Storage::disk('public')->delete($oldPath);
-                }
-                $path = $file->store('settings', 'public');
+                PublicImageStorage::delete($oldPath);
+                $path = PublicImageStorage::store($file, 'settings');
                 WebsiteSetting::set($key, $path);
             }
         }
@@ -67,7 +65,7 @@ class WebsiteSettingService
     public function createSlider(array $data, $imageFile = null): Slider
     {
         if ($imageFile) {
-            $data['image'] = $imageFile->store('sliders', 'public');
+            $data['image'] = PublicImageStorage::store($imageFile, 'sliders');
         }
 
         if (!isset($data['order']) || $data['order'] <= 0) {
@@ -80,10 +78,8 @@ class WebsiteSettingService
     public function updateSlider(Slider $slider, array $data, $imageFile = null): Slider
     {
         if ($imageFile) {
-            if ($slider->image && Storage::disk('public')->exists($slider->image)) {
-                Storage::disk('public')->delete($slider->image);
-            }
-            $data['image'] = $imageFile->store('sliders', 'public');
+            PublicImageStorage::delete($slider->image);
+            $data['image'] = PublicImageStorage::store($imageFile, 'sliders');
         }
 
         $slider->update($data);
@@ -92,9 +88,7 @@ class WebsiteSettingService
 
     public function deleteSlider(Slider $slider): bool
     {
-        if ($slider->image && Storage::disk('public')->exists($slider->image)) {
-            Storage::disk('public')->delete($slider->image);
-        }
+        PublicImageStorage::delete($slider->image);
 
         return $slider->delete();
     }

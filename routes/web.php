@@ -166,4 +166,65 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/messages', [AdminMessageController::class, 'index'])->name('messages.index');
     Route::get('/messages/{message}', [AdminMessageController::class, 'show'])->name('messages.show');
     Route::delete('/messages/{message}', [AdminMessageController::class, 'destroy'])->name('messages.destroy');
+
+    /*
+    |----------------------------------------------------------------------
+    | School & Institutional Management Suite Routes (মূল ফিচারসমূহ)
+    |----------------------------------------------------------------------
+    */
+    Route::prefix('school')->name('school.')->group(function () {
+        // 1. Biometric / Fingerprint Attendance
+        Route::get('/attendance', [\App\Http\Controllers\Admin\School\AttendanceController::class, 'index'])->name('attendance.index');
+        Route::post('/attendance/save', [\App\Http\Controllers\Admin\School\AttendanceController::class, 'save'])->name('attendance.save');
+        Route::post('/attendance/sync', [\App\Http\Controllers\Admin\School\AttendanceController::class, 'syncBiometric'])->name('attendance.sync');
+
+        // 2. Student Management & Promotion
+        Route::get('/students/promotion', [\App\Http\Controllers\Admin\School\SchoolStudentController::class, 'promotion'])->name('students.promotion');
+        Route::post('/students/promotion', [\App\Http\Controllers\Admin\School\SchoolStudentController::class, 'processPromotion'])->name('students.promotion.process');
+        Route::resource('students', \App\Http\Controllers\Admin\School\SchoolStudentController::class);
+
+        // 3. Staff & Teacher Management & Allocations
+        Route::get('/staff/assignments', [\App\Http\Controllers\Admin\School\StaffController::class, 'assignments'])->name('staff.assignments');
+        Route::post('/staff/assignments', [\App\Http\Controllers\Admin\School\StaffController::class, 'storeAssignment'])->name('staff.assignments.store');
+        Route::delete('/staff/assignments/{assignment}', [\App\Http\Controllers\Admin\School\StaffController::class, 'deleteAssignment'])->name('staff.assignments.destroy');
+        Route::resource('staff', \App\Http\Controllers\Admin\School\StaffController::class);
+
+        // 4. Classes, Routine, Syllabus, Homework, Calendar
+        Route::get('/routines', [\App\Http\Controllers\Admin\School\AcademicController::class, 'routines'])->name('academics.routines');
+        Route::post('/routines', [\App\Http\Controllers\Admin\School\AcademicController::class, 'storeRoutine'])->name('academics.routines.store');
+        Route::delete('/routines/{routine}', [\App\Http\Controllers\Admin\School\AcademicController::class, 'destroyRoutine'])->name('academics.routines.destroy');
+
+        Route::get('/syllabi', [\App\Http\Controllers\Admin\School\AcademicController::class, 'syllabi'])->name('academics.syllabi');
+        Route::post('/syllabi', [\App\Http\Controllers\Admin\School\AcademicController::class, 'storeSyllabus'])->name('academics.syllabi.store');
+        Route::delete('/syllabi/{syllabus}', [\App\Http\Controllers\Admin\School\AcademicController::class, 'destroySyllabus'])->name('academics.syllabi.destroy');
+
+        Route::get('/homework', [\App\Http\Controllers\Admin\School\AcademicController::class, 'homework'])->name('academics.homework');
+        Route::post('/homework', [\App\Http\Controllers\Admin\School\AcademicController::class, 'storeHomework'])->name('academics.homework.store');
+        Route::delete('/homework/{homework}', [\App\Http\Controllers\Admin\School\AcademicController::class, 'destroyHomework'])->name('academics.homework.destroy');
+
+        Route::get('/calendar', [\App\Http\Controllers\Admin\School\AcademicController::class, 'calendar'])->name('academics.calendar');
+        Route::post('/calendar', [\App\Http\Controllers\Admin\School\AcademicController::class, 'storeCalendar'])->name('academics.calendar.store');
+        Route::delete('/calendar/{calendar}', [\App\Http\Controllers\Admin\School\AcademicController::class, 'destroyCalendar'])->name('academics.calendar.destroy');
+
+        // 5. Exams, Marks Entry & Report Cards
+        Route::get('/exams', [\App\Http\Controllers\Admin\School\ExamReportCardController::class, 'index'])->name('exams.index');
+        Route::post('/exams', [\App\Http\Controllers\Admin\School\ExamReportCardController::class, 'storeExam'])->name('exams.store');
+        Route::get('/exams/marks-entry', [\App\Http\Controllers\Admin\School\ExamReportCardController::class, 'marksEntry'])->name('exams.marks.entry');
+        Route::post('/exams/marks-entry', [\App\Http\Controllers\Admin\School\ExamReportCardController::class, 'saveMarks'])->name('exams.marks.save');
+        Route::get('/exams/tabulation', [\App\Http\Controllers\Admin\School\ExamReportCardController::class, 'tabulation'])->name('exams.tabulation');
+        Route::get('/exams/report-card/{student}/{exam}', [\App\Http\Controllers\Admin\School\ExamReportCardController::class, 'reportCard'])->name('exams.report_card');
+
+        // 6. Fees & Salary Management
+        Route::get('/fees', [\App\Http\Controllers\Admin\School\SchoolFeeController::class, 'index'])->name('fees.index');
+        Route::post('/fees/generate', [\App\Http\Controllers\Admin\School\SchoolFeeController::class, 'generateInvoices'])->name('fees.generate');
+        Route::post('/fees/{invoice}/collect', [\App\Http\Controllers\Admin\School\SchoolFeeController::class, 'collectFee'])->name('fees.collect');
+        Route::get('/fees/{invoice}/receipt', [\App\Http\Controllers\Admin\School\SchoolFeeController::class, 'printReceipt'])->name('fees.receipt');
+
+        Route::get('/salaries', [\App\Http\Controllers\Admin\School\SchoolFeeController::class, 'salaries'])->name('fees.salaries');
+        Route::post('/salaries/disburse', [\App\Http\Controllers\Admin\School\SchoolFeeController::class, 'disburseSalary'])->name('fees.salaries.disburse');
+
+        // 7. Reports & Analytics
+        Route::get('/reports', [\App\Http\Controllers\Admin\School\SchoolReportController::class, 'index'])->name('reports.index');
+        Route::get('/reports/export', [\App\Http\Controllers\Admin\School\SchoolReportController::class, 'exportCsv'])->name('reports.export');
+    });
 });

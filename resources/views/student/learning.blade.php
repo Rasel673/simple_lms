@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-full">
+<html lang="bn" class="h-full">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ $currentLesson->title }} - {{ $course->title }}</title>
-    <!-- Google Fonts: Inter -->
+    <!-- Google Fonts: Hind Siliguri (Bangla) & Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
-        body { font-family: 'Inter', sans-serif; }
+        body { font-family: 'Hind Siliguri', 'Inter', system-ui, -apple-system, sans-serif; }
         [x-cloak] { display: none !important; }
     </style>
 </head>
@@ -21,12 +21,12 @@
         <div class="flex items-center gap-4 min-w-0">
             <a href="{{ route('student.my-courses') }}" class="flex items-center gap-2 text-xs font-semibold text-slate-400 hover:text-white transition-colors shrink-0">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-                <span class="hidden sm:inline">My Courses</span>
+                <span class="hidden sm:inline">আমার কোর্সসমূহ</span>
             </a>
             <span class="text-slate-700 hidden sm:inline">|</span>
             <div class="min-w-0">
                 <h1 class="text-xs sm:text-sm font-bold text-white truncate max-w-md">{{ $course->title }}</h1>
-                <span class="text-[10px] text-slate-400 truncate block">Lesson: {{ $currentLesson->title }}</span>
+                <span class="text-[11px] text-slate-400 truncate block">লেসন: {{ $currentLesson->title }}</span>
             </div>
         </div>
 
@@ -42,7 +42,7 @@
             <!-- Toggle playlist button -->
             <button @click="sidebarOpen = !sidebarOpen" type="button" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-300 flex items-center gap-1.5 transition-colors">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path></svg>
-                <span class="hidden sm:inline" x-text="sidebarOpen ? 'Hide Playlist' : 'Show Playlist'">Playlist</span>
+                <span class="hidden sm:inline" x-text="sidebarOpen ? 'প্লেলিস্ট লুকান' : 'লেসন তালিকা'">লেসন তালিকা</span>
             </button>
         </div>
     </header>
@@ -68,8 +68,8 @@
                             <div class="w-12 h-12 rounded-2xl bg-slate-800 text-slate-400 flex items-center justify-center mx-auto mb-3">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
                             </div>
-                            <h3 class="text-sm font-bold text-white mb-1">Lesson Material Available</h3>
-                            <p class="text-xs text-slate-400">Review the lesson notes below. The video for this module will be added shortly.</p>
+                            <h3 class="text-sm font-bold text-white mb-1">লেসন তথ্য উপলব্ধ</h3>
+                            <p class="text-xs text-slate-400">নিচের লেসন নোট পড়ুন। এই মডিউলের ভিডিও শীঘ্রই যুক্ত করা হবে।</p>
                         </div>
                     @endif
                 </div>
@@ -77,7 +77,7 @@
                 <!-- Lesson Header & Actions Bar -->
                 <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                     <div>
-                        <span class="text-[10px] font-bold uppercase tracking-wider text-indigo-400 block mb-0.5">Current Module</span>
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-indigo-400 block mb-0.5">বর্তমান লেসন</span>
                         <h2 class="text-base sm:text-lg font-bold text-white">{{ $currentLesson->title }}</h2>
                         @if($currentLesson->duration)
                             <span class="text-xs text-slate-400 flex items-center gap-1 mt-0.5">
@@ -95,7 +95,7 @@
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
                                 </svg>
-                                <span>{{ $isCurrentCompleted ? 'Completed (Click to Revert)' : 'Mark as Completed' }}</span>
+                                <span>{{ $isCurrentCompleted ? 'সম্পন্ন হয়েছে (পুনরায় দেখতে ক্লিক করুন)' : 'সম্পন্ন হিসেবে চিহ্নিত করুন' }}</span>
                             </button>
                         </form>
 
@@ -104,22 +104,22 @@
                             @if($prevLesson)
                                 <a href="{{ route('student.learning', ['course' => $course->id, 'lesson' => $prevLesson->id]) }}" class="px-3.5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-200 flex items-center gap-1.5 transition-colors">
                                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-                                    <span>Prev</span>
+                                    <span>পূর্ববর্তী</span>
                                 </a>
                             @else
                                 <span class="px-3.5 py-2.5 rounded-xl bg-slate-900 text-xs font-semibold text-slate-600 border border-slate-800 cursor-not-allowed">
-                                    Prev
+                                    পূর্ববর্তী
                                 </span>
                             @endif
 
                             @if($nextLesson)
                                 <a href="{{ route('student.learning', ['course' => $course->id, 'lesson' => $nextLesson->id]) }}" class="px-3.5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-xs font-semibold text-white flex items-center gap-1.5 transition-colors shadow-xs">
-                                    <span>Next</span>
+                                    <span>পরবর্তী</span>
                                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                                 </a>
                             @elseif($progress['final_exam'])
                                 <a href="{{ route('student.exam.show', $progress['final_exam']->id) }}" class="px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-xs font-bold text-slate-950 flex items-center gap-1.5 transition-colors shadow-xs">
-                                    <span>Take Exam</span>
+                                    <span>পরীক্ষা দিন</span>
                                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                                 </a>
                             @endif
@@ -132,23 +132,23 @@
                     @if($progress['has_required_exam'] && !$progress['has_passed_exam'])
                         <div class="bg-gradient-to-r from-amber-950/80 to-slate-900 border border-amber-500/40 rounded-2xl p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                             <div class="space-y-1">
-                                <span class="text-xs font-bold uppercase tracking-wider text-amber-400">Step 2: Certification Examination</span>
-                                <h3 class="text-base font-bold text-white">All lessons completed! Now take the Certification Exam.</h3>
-                                <p class="text-xs text-slate-300">Pass with at least {{ $progress['final_exam']->passing_percentage }}% to receive your verified PDF certificate.</p>
+                                <span class="text-xs font-bold uppercase tracking-wider text-amber-400">ধাপ ২: সার্টিফিকেট পরীক্ষা</span>
+                                <h3 class="text-base font-bold text-white">সব লেসন সম্পন্ন হয়েছে! এবার সার্টিফিকেট পরীক্ষা দিন।</h3>
+                                <p class="text-xs text-slate-300">কমপক্ষে {{ $progress['final_exam']->passing_percentage }}% নম্বর পেয়ে পাস করলেই স্বয়ংক্রিয়ভাবে সার্টিফিকেট পাবেন।</p>
                             </div>
                             <a href="{{ route('student.exam.show', $progress['final_exam']->id) }}" class="px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold text-xs shrink-0 shadow-lg transition-all">
-                                Start Assessment Exam →
+                                পরীক্ষা শুরু করুন →
                             </a>
                         </div>
                     @elseif($progress['is_completed'])
                         <div class="bg-gradient-to-r from-emerald-950/80 to-slate-900 border border-emerald-500/40 rounded-2xl p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                             <div class="space-y-1">
-                                <span class="text-xs font-bold uppercase tracking-wider text-emerald-400">Course Fully Completed!</span>
-                                <h3 class="text-base font-bold text-white">Congratulations! You have fulfilled all completion requirements.</h3>
-                                <p class="text-xs text-slate-300">Your verified certificate of completion has been automatically generated.</p>
+                                <span class="text-xs font-bold uppercase tracking-wider text-emerald-400">কোর্সটি সম্পন্ন হয়েছে!</span>
+                                <h3 class="text-base font-bold text-white">অভিনন্দন! আপনি সফলভাবে এই কোর্সটি সম্পন্ন করেছেন।</h3>
+                                <p class="text-xs text-slate-300">আপনার ভেরিফাইড সার্টিফিকেট তৈরি হয়ে গেছে।</p>
                             </div>
                             <a href="{{ route('student.certificates.index') }}" class="px-6 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-xs shrink-0 shadow-lg transition-all">
-                                View & Download Certificate →
+                                সার্টিফিকেট দেখুন ও ডাউনলোড করুন →
                             </a>
                         </div>
                     @endif
@@ -157,25 +157,41 @@
                 <!-- Lesson Description & Text -->
                 @if($currentLesson->description)
                     <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-3">
-                        <h3 class="text-sm font-bold text-white">Lesson Overview & Notes</h3>
+                        <h3 class="text-sm font-bold text-white">লেসন ওভারভিউ ও নোট</h3>
                         <p class="text-xs text-slate-300 leading-relaxed whitespace-pre-line">{{ $currentLesson->description }}</p>
                     </div>
                 @endif
             </div>
         </main>
 
+        <!-- Mobile Playlist Backdrop -->
+        <div x-show="sidebarOpen"
+             x-cloak
+             @click="sidebarOpen = false"
+             class="fixed inset-0 bg-slate-950/70 backdrop-blur-xs z-30 md:hidden"></div>
+
         <!-- Right Sidebar: Lesson Playlist -->
         <aside x-show="sidebarOpen" x-cloak
-               class="w-80 bg-slate-900 border-l border-slate-800 flex flex-col shrink-0 overflow-y-auto">
+               x-transition:enter="transition ease-out duration-200"
+               x-transition:enter-start="translate-x-full"
+               x-transition:enter-end="translate-x-0"
+               x-transition:leave="transition ease-in duration-150"
+               x-transition:leave-start="translate-x-0"
+               x-transition:leave-end="translate-x-full"
+               class="fixed md:static inset-y-0 right-0 z-40 w-72 sm:w-80 bg-slate-900 border-l border-slate-800 flex flex-col shrink-0 overflow-y-auto shadow-2xl md:shadow-none">
             <div class="p-4 border-b border-slate-800 flex items-center justify-between bg-slate-900/90 sticky top-0 z-10 backdrop-blur-md">
                 <div>
-                    <h3 class="text-xs font-bold text-white">Curriculum Playlist</h3>
-                    <p class="text-[10px] text-slate-400">{{ $progress['completed_lessons'] }}/{{ $progress['total_lessons'] }} Lessons Completed</p>
+                    <h3 class="text-xs font-bold text-white">কোর্স কারিকুলাম ও লেসন</h3>
+                    <p class="text-[11px] text-slate-400">{{ $progress['completed_lessons'] }}/{{ $progress['total_lessons'] }}টি লেসন সম্পন্ন</p>
                 </div>
+                <!-- Close Button on Mobile -->
+                <button @click="sidebarOpen = false" type="button" class="md:hidden text-slate-400 hover:text-white p-1 rounded-lg">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
             </div>
 
             <!-- Lessons List -->
-            <div class="p-3 space-y-1.5 flex-1">
+            <div class="p-3 flex flex-col gap-1.5 flex-1">
                 @foreach($lessons as $index => $l)
                     @php $isDone = $l->isCompletedBy(auth()->id()); @endphp
                     <a href="{{ route('student.learning', ['course' => $course->id, 'lesson' => $l->id]) }}"
@@ -204,10 +220,10 @@
                         <a href="{{ route('student.exam.show', $progress['final_exam']->id) }}" class="flex items-center justify-between p-3 rounded-xl border border-amber-500/30 bg-amber-950/20 text-amber-300 hover:bg-amber-950/40 transition-colors">
                             <div class="flex items-center gap-2 min-w-0">
                                 <svg class="w-4 h-4 text-amber-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138z"></path></svg>
-                                <span class="text-xs font-bold truncate">Certification Exam</span>
+                                <span class="text-xs font-bold truncate">সার্টিফিকেট পরীক্ষা</span>
                             </div>
-                            <span class="text-[10px] font-bold px-1.5 py-0.5 rounded {{ $progress['has_passed_exam'] ? 'bg-emerald-500/20 text-emerald-400' : 'bg-amber-500/20 text-amber-300' }}">
-                                {{ $progress['has_passed_exam'] ? 'Passed' : 'Required' }}
+                            <span class="text-[10px] font-bold px-2 py-0.5 rounded {{ $progress['has_passed_exam'] ? 'bg-emerald-500/20 text-emerald-400' : 'bg-amber-500/20 text-amber-300' }}">
+                                {{ $progress['has_passed_exam'] ? 'উত্তীর্ণ' : 'প্রয়োজনীয়' }}
                             </span>
                         </a>
                     </div>

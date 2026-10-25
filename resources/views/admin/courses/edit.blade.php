@@ -83,7 +83,7 @@
                 <label class="block text-xs font-bold text-slate-700 mb-1.5">Course Thumbnail</label>
                 @if($course->thumbnail)
                     <div class="mb-3 flex items-center gap-3">
-                        <img src="{{ asset('storage/' . $course->thumbnail) }}" alt="{{ $course->title }}" class="w-24 h-16 object-cover rounded-xl border border-slate-200">
+                        <img src="{{ asset($course->thumbnail) }}" alt="{{ $course->title }}" class="w-24 h-16 object-cover rounded-xl border border-slate-200">
                         <span class="text-xs text-slate-500">Current thumbnail</span>
                     </div>
                 @endif

@@ -1,13 +1,13 @@
 @extends('layouts.student')
 
-@section('title', 'My Certificates')
-@section('page_title', 'Earned Certificates')
+@section('title', 'আমার সার্টিফিকেটসমূহ')
+@section('page_title', 'অর্জিত সার্টিফিকেটসমূহ')
 
 @section('content')
 <div class="space-y-6">
     <div>
-        <h1 class="text-xl font-extrabold text-slate-900">My Certified Credentials</h1>
-        <p class="text-xs text-slate-500 mt-0.5">Download your verified PDF completion certificates or share your unique verification ID.</p>
+        <h1 class="text-xl font-extrabold text-slate-900">আমার অর্জিত সার্টিফিকেটসমূহ</h1>
+        <p class="text-xs text-slate-500 mt-0.5">আপনার ভেরিফাইড পিডিএফ সার্টিফিকেট ডাউনলোড করুন অথবা ইউনিক আইডি দিয়ে সত্যতা প্রমাণ করুন।</p>
     </div>
 
     @if($certificates->isEmpty())
@@ -15,10 +15,10 @@
             <div class="w-12 h-12 rounded-2xl bg-violet-50 text-violet-600 flex items-center justify-center mx-auto mb-3">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138z"></path></svg>
             </div>
-            <h3 class="text-base font-bold text-slate-800">No certificates earned yet</h3>
-            <p class="text-xs text-slate-500 mt-1">Complete all lessons in an enrolled course and pass the final exam assessment to generate your certificate.</p>
+            <h3 class="text-base font-bold text-slate-800">এখনো কোনো সার্টিফিকেট অর্জিত হয়নি</h3>
+            <p class="text-xs text-slate-500 mt-1">কোর্সের সকল লেসন দেখা শেষ করে ফাইনাল পরীক্ষায় পাস করলেই সাথে সাথে আপনার সার্টিফিকেট তৈরি হবে।</p>
             <a href="{{ route('student.my-courses') }}" class="inline-block mt-4 px-5 py-2.5 bg-indigo-600 text-white rounded-xl text-xs font-semibold shadow-xs">
-                Continue Courses
+                কোর্সসমূহ দেখুন
             </a>
         </div>
     @else
@@ -40,16 +40,16 @@
                         </h3>
 
                         <p class="text-[11px] text-slate-500">
-                            Issued on: <span class="font-semibold text-slate-700">{{ $cert->issue_date->format('F d, Y') }}</span>
+                            ইস্যুর তারিখ: <span class="font-semibold text-slate-700">{{ $cert->issue_date->format('F d, Y') }}</span>
                         </p>
                     </div>
 
                     <div class="pt-4 border-t border-slate-100 flex items-center justify-between gap-2">
                         <a href="{{ route('student.certificates.show', $cert->id) }}" class="flex-1 text-center py-2 px-3 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-semibold transition-colors">
-                            View
+                            দেখুন
                         </a>
                         <a href="{{ route('student.certificates.download', $cert->id) }}" class="flex-1 text-center py-2 px-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold transition-colors shadow-xs">
-                            Download PDF
+                            পিডিএফ ডাউনলোড
                         </a>
                     </div>
                 </div>

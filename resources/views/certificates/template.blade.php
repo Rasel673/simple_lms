@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
     <meta charset="utf-8">
-    <title>Certificate of Completion - {{ $certificateNumber }}</title>
+    <title>সনদপত্র - {{ $certificateNumber }}</title>
     <style>
         @page {
             size: a4 landscape;
             margin: 0;
         }
         body {
-            font-family: 'Helvetica', 'Arial', sans-serif;
+            font-family: 'DejaVu Sans', 'Helvetica', 'Arial', sans-serif;
             margin: 0;
             padding: 30px;
             background-color: #f8fafc;
@@ -39,50 +39,50 @@
             margin-bottom: 5px;
         }
         .cert-title {
-            font-size: 32px;
+            font-size: 28px;
             font-weight: 800;
             color: #0f172a;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             text-transform: uppercase;
             margin-top: 10px;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
         .subtitle {
-            font-size: 13px;
+            font-size: 12px;
             color: #64748b;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 25px;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
         }
         .presented-to {
-            font-size: 14px;
+            font-size: 13px;
             font-style: italic;
             color: #64748b;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
         .student-name {
-            font-size: 36px;
+            font-size: 32px;
             font-weight: bold;
             color: #1e1b4b;
             text-decoration: underline;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
         .description {
-            font-size: 13px;
+            font-size: 12px;
             color: #475569;
             max-width: 650px;
-            margin: 0 auto 15px auto;
+            margin: 0 auto 12px auto;
             line-height: 1.6;
         }
         .course-title {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: bold;
             color: #4f46e5;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
         .footer-table {
             width: 100%;
-            margin-top: 30px;
+            margin-top: 25px;
             border-collapse: collapse;
         }
         .footer-table td {
@@ -102,7 +102,7 @@
             font-size: 10px;
             font-weight: bold;
             letter-spacing: 1px;
-            padding: 6px 14px;
+            padding: 5px 14px;
             border-radius: 20px;
             text-transform: uppercase;
             margin-bottom: 10px;
@@ -113,15 +113,15 @@
     <div class="outer-border">
         <div class="inner-border">
             <div class="gold-badge">Official Certified Achievement</div>
-            <div class="academy-name">{{ config('app.name', 'LearnHub LMS') }}</div>
+            <div class="academy-name">{{ config('app.name', 'সহজ এলএমএস') }}</div>
             <div class="cert-title">Certificate of Completion</div>
-            <div class="subtitle">Academic Quality Assurance &amp; Certification Directorate</div>
+            <div class="subtitle">Academic Quality Assurance &amp; Certification Council</div>
 
-            <div class="presented-to">This certificate is awarded to</div>
+            <div class="presented-to">This certificate is proudly awarded to / গর্বের সাথে প্রদান করা হচ্ছে</div>
             <div class="student-name">{{ $student->name }}</div>
 
             <div class="description">
-                in recognition of successfully completing all required video lecture modules, practical exercises, and passing the comprehensive examination for the course:
+                for successfully completing all curriculum modules, projects, and passing the required certification examination for:
             </div>
 
             <div class="course-title">{{ $course->title }}</div>
@@ -130,19 +130,19 @@
                 <tr>
                     <td style="text-align: left; width: 33%;">
                         <div class="signature-line"></div>
-                        <strong>Date of Issue:</strong> {{ $issueDate }}<br>
-                        <strong>Certificate ID:</strong> {{ $certificateNumber }}
+                        <strong>Issue Date / ইস্যুর তারিখ:</strong> {{ $issueDate }}<br>
+                        <strong>Certificate ID / সনদ নং:</strong> {{ $certificateNumber }}
                     </td>
                     <td style="text-align: center; width: 34%;">
                         <div style="font-size: 10px; color: #16a34a; font-weight: bold;">
                             [VERIFIED AUTHENTIC]<br>
-                            Verification Portal: {{ url('/verify-certificate') }}
+                            যাচাই পোর্টাল: {{ url('/verify-certificate') }}
                         </div>
                     </td>
                     <td style="text-align: right; width: 33%;">
                         <div class="signature-line" style="margin-left: auto;"></div>
                         <strong>Academic Director</strong><br>
-                        LearnHub Learning Board
+                        {{ config('app.name', 'সহজ এলএমএস') }}
                     </td>
                 </tr>
             </table>

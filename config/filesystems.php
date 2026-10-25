@@ -74,7 +74,7 @@ return [
     */
 
     'links' => [
-        public_path('storage') => storage_path('app/public'),
+        // Images are stored directly under public; no storage symlink is required.
     ],
 
 ];

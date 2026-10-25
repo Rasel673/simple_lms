@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', ($course->meta_title ?: $course->title) . ' - ' . config('app.name', 'LearnHub LMS'))
+@section('title', ($course->meta_title ?: $course->title) . ' - ' . config('app.name', 'সহজ এলএমএস'))
 @section('meta_description', $course->meta_description ?: $course->short_description)
 
 @push('styles')
@@ -13,7 +13,7 @@
     'description' => $course->short_description,
     'provider' => [
         '@type' => 'Organization',
-        'name' => config('app.name', 'LearnHub LMS'),
+        'name' => config('app.name', 'সহজ এলএমএস'),
         'sameAs' => url('/'),
     ],
     'offers' => [
@@ -38,7 +38,7 @@
                         {{ $course->category->name }}
                     </span>
                     <span class="text-xs text-slate-400">
-                        Updated {{ $course->updated_at->format('M Y') }}
+                        হালনাগাদ: {{ $course->updated_at->format('M Y') }}
                     </span>
                 </div>
 
@@ -53,15 +53,15 @@
                 <div class="flex flex-wrap items-center gap-6 pt-2 text-xs text-slate-400">
                     <div class="flex items-center gap-1.5">
                         <svg class="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                        <span>{{ $course->duration ?: 'Self-Paced' }}</span>
+                        <span>{{ $course->duration ?: 'স্বচ্ছন্দ গতি' }}</span>
                     </div>
                     <div class="flex items-center gap-1.5">
                         <svg class="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-                        <span>{{ $course->publishedLessons->count() }} Lessons Included</span>
+                        <span>{{ $course->publishedLessons->count() }}টি লেকচার অন্তর্ভুক্ত</span>
                     </div>
                     <div class="flex items-center gap-1.5">
                         <svg class="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138z"></path></svg>
-                        <span>Verifiable Certificate</span>
+                        <span>যাচাইযোগ্য সার্টিফিকেট</span>
                     </div>
                 </div>
             </div>
@@ -71,7 +71,7 @@
                 <div class="bg-white rounded-2xl p-6 text-slate-800 shadow-xl border border-slate-200">
                     <div class="relative h-44 rounded-xl overflow-hidden mb-5 bg-slate-900">
                         @if($course->thumbnail)
-                            <img src="{{ asset('storage/' . $course->thumbnail) }}" alt="{{ $course->title }}" class="w-full h-full object-cover">
+                            <img src="{{ asset($course->thumbnail) }}" alt="{{ $course->title }}" class="w-full h-full object-cover">
                         @else
                             <div class="w-full h-full flex items-center justify-center bg-gradient-to-tr from-indigo-950 to-slate-900 text-white p-4 text-center text-xs font-semibold">
                                 {{ $course->title }}
@@ -88,7 +88,7 @@
                                 ৳{{ number_format($course->price, 2) }}
                             </span>
                             <span class="text-xs font-bold text-rose-600 bg-rose-50 px-2 py-0.5 rounded-md">
-                                Save ৳{{ number_format($course->price - $course->effective_price, 2) }}
+                                সাশ্রয় ৳{{ number_format($course->price - $course->effective_price, 2) }}
                             </span>
                         @endif
                     </div>
@@ -96,19 +96,19 @@
                     @if($isEnrolled)
                         <div class="space-y-3">
                             <div class="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-center">
-                                <span class="text-xs font-bold text-emerald-800">✓ You are enrolled in this course</span>
+                                <span class="text-xs font-bold text-emerald-800">✓ আপনি ইতিমধ্যে এই কোর্সে ভর্তি আছেন</span>
                             </div>
                             <a href="{{ route('student.learning', ['course' => $course->id]) }}" class="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm bg-emerald-600 hover:bg-emerald-700 text-white shadow-md transition-all">
-                                Continue Learning
+                                পড়া শুরু করুন
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                             </a>
                         </div>
                     @else
                         <a href="{{ route('checkout.show', $course->slug) }}" class="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm bg-indigo-600 hover:bg-indigo-700 text-white shadow-lg shadow-indigo-200 transition-all transform hover:-translate-y-0.5">
-                            Buy Course Now
+                            এখনই কোর্সটি কিনুন
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                         </a>
-                        <p class="text-[11px] text-slate-400 text-center mt-3">SSLCommerz secure encrypted checkout</p>
+                        <p class="text-[11px] text-slate-400 text-center mt-3">SSLCommerz / বিকাশ / নগদ নিরাপদ পেমেন্ট</p>
                     @endif
                 </div>
             </div>
@@ -126,9 +126,9 @@
                 <div class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-xs">
                     <h2 class="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
                         <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                        What You Will Learn
+                        এই কোর্স থেকে আপনি যা যা শিখবেন
                     </h2>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-700">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm text-slate-700">
                         @foreach($course->learning_outcomes as $outcome)
                             <div class="flex items-start gap-2.5 p-2 rounded-lg bg-slate-50">
                                 <svg class="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
@@ -143,12 +143,12 @@
             <div class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-xs">
                 <div class="flex items-center justify-between mb-6">
                     <div>
-                        <h2 class="text-lg font-bold text-slate-900">Course Curriculum</h2>
-                        <p class="text-xs text-slate-500 mt-0.5">{{ $course->publishedLessons->count() }} Structured Video Lessons</p>
+                        <h2 class="text-lg font-bold text-slate-900">কোর্সের পাঠ্যক্রম</h2>
+                        <p class="text-xs text-slate-500 mt-0.5">{{ $course->publishedLessons->count() }}টি ধাপে সাজানো ভিডিও লেকচার</p>
                     </div>
                     @if($course->finalExam)
                         <span class="px-2.5 py-1 rounded-md text-[11px] font-bold bg-amber-50 text-amber-800 border border-amber-200">
-                            Assessment Exam Required ({{ $course->finalExam->passing_percentage }}% to pass)
+                            সার্টিফিকেট পরীক্ষা আবশ্যক (উত্তীর্ণ হতে {{ $course->finalExam->passing_percentage }}% নম্বর প্রয়োজন)
                         </span>
                     @endif
                 </div>
@@ -174,22 +174,22 @@
                                 @endif
 
                                 @if($lesson->is_preview)
-                                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800">Preview</span>
+                                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800">প্রিভিউ</span>
                                 @elseif(!$isEnrolled)
                                     <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
                                 @endif
                             </div>
                         </div>
                     @empty
-                        <p class="text-xs text-slate-500 py-4 text-center">Lessons are currently being prepared for this course.</p>
+                        <p class="text-xs text-slate-500 py-4 text-center">এই কোর্সের লেকচারগুলো সাজানো হচ্ছে।</p>
                     @endforelse
                 </div>
             </div>
 
             <!-- Course Description -->
             <div class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-xs">
-                <h2 class="text-lg font-bold text-slate-900 mb-4">Course Description</h2>
-                <div class="prose prose-slate prose-sm max-w-none text-xs text-slate-700 leading-relaxed space-y-3">
+                <h2 class="text-lg font-bold text-slate-900 mb-4">কোর্সের বিস্তারিত বর্ণনা</h2>
+                <div class="prose prose-slate prose-sm max-w-none text-xs sm:text-sm text-slate-700 leading-relaxed space-y-3">
                     {!! $course->description !!}
                 </div>
             </div>
@@ -198,35 +198,35 @@
         <!-- Sidebar / Details -->
         <div class="lg:col-span-4 space-y-6">
             <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs space-y-4">
-                <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wider">Course Inclusions</h3>
+                <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wider">এই কোর্সে যা পাচ্ছেন</h3>
                 <ul class="space-y-3 text-xs text-slate-600">
                     <li class="flex items-center gap-2.5">
                         <svg class="w-4 h-4 text-indigo-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-                        <span>Full HD Video Lessons on demand</span>
+                        <span>এইচডি ফুল ভিডিও লেকচার যেকোনো সময় দেখার সুযোগ</span>
                     </li>
                     <li class="flex items-center gap-2.5">
                         <svg class="w-4 h-4 text-indigo-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138z"></path></svg>
-                        <span>Verified MCQ Examination with 70% pass requirement</span>
+                        <span>যাচাইকৃত অনলাইন পরীক্ষা (পাস নম্বর ৭০%)</span>
                     </li>
                     <li class="flex items-center gap-2.5">
                         <svg class="w-4 h-4 text-indigo-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                        <span>Downloadable PDF Completion Certificate</span>
+                        <span>ডাউনলোডযোগ্য ডিজিটাল পিডিএফ সার্টিফিকেট</span>
                     </li>
                     <li class="flex items-center gap-2.5">
                         <svg class="w-4 h-4 text-indigo-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                        <span>Lifetime Access from Desktop & Mobile</span>
+                        <span>মোবাইল ও কম্পিউটার থেকে আজীবন অ্যাক্সেস</span>
                     </li>
                 </ul>
             </div>
 
             <!-- Share & Verification Info -->
             <div class="bg-indigo-50 border border-indigo-100 rounded-2xl p-6 text-xs text-indigo-900 space-y-2">
-                <h4 class="font-bold">Credential Verification</h4>
+                <h4 class="font-bold">সনদপত্র পাবলিক ভেরিফিকেশন</h4>
                 <p class="text-indigo-700 leading-relaxed">
-                    Certificates issued for this course are uniquely identified and can be verified publicly by future employers anytime on our verification portal.
+                    এই কোর্স সমাপ্তির সনদ ইউনিক ভেরিফিকেশন নম্বর সম্বলিত, যা যেকোনো নিয়োগকর্তা আমাদের অনলাইন পোর্টাল থেকে তাৎক্ষণিক যাচাই করতে পারবেন।
                 </p>
                 <a href="{{ route('certificate.verify') }}" class="inline-block text-indigo-600 font-bold hover:underline pt-1">
-                    Try Verification Search →
+                    সার্টিফিকেট যাচাই করে দেখুন →
                 </a>
             </div>
         </div>

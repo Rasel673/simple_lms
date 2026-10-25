@@ -13,9 +13,10 @@
 /.zed
 /auth.json
 /node_modules
-/public/build
+# /public/build (tracked for cPanel deployment where Node.js is unavailable)
 /public/hot
 /public/storage
+*.zip
 /storage/*.key
 /storage/pail
 /vendor

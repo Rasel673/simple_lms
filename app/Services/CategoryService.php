@@ -3,8 +3,8 @@
 namespace App\Services;
 
 use App\Models\Category;
+use App\Support\PublicImageStorage;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class CategoryService
@@ -38,7 +38,7 @@ class CategoryService
         }
 
         if ($imageFile) {
-            $data['image'] = $imageFile->store('categories', 'public');
+            $data['image'] = PublicImageStorage::store($imageFile, 'categories');
         }
 
         return Category::create($data);
@@ -56,10 +56,8 @@ class CategoryService
         }
 
         if ($imageFile) {
-            if ($category->image && Storage::disk('public')->exists($category->image)) {
-                Storage::disk('public')->delete($category->image);
-            }
-            $data['image'] = $imageFile->store('categories', 'public');
+            PublicImageStorage::delete($category->image);
+            $data['image'] = PublicImageStorage::store($imageFile, 'categories');
         }
 
         $category->update($data);
@@ -76,9 +74,7 @@ class CategoryService
             ];
         }
 
-        if ($category->image && Storage::disk('public')->exists($category->image)) {
-            Storage::disk('public')->delete($category->image);
-        }
+        PublicImageStorage::delete($category->image);
 
         $category->delete();
 

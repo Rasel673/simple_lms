@@ -3,8 +3,8 @@
 namespace App\Services;
 
 use App\Models\Course;
+use App\Support\PublicImageStorage;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class CourseService
@@ -67,7 +67,7 @@ class CourseService
         }
 
         if ($thumbnailFile) {
-            $path = $thumbnailFile->store('courses', 'public');
+            $path = PublicImageStorage::store($thumbnailFile, 'courses');
             $data['thumbnail'] = $path;
         }
 
@@ -92,10 +92,8 @@ class CourseService
         }
 
         if ($thumbnailFile) {
-            if ($course->thumbnail && Storage::disk('public')->exists($course->thumbnail)) {
-                Storage::disk('public')->delete($course->thumbnail);
-            }
-            $data['thumbnail'] = $thumbnailFile->store('courses', 'public');
+            PublicImageStorage::delete($course->thumbnail);
+            $data['thumbnail'] = PublicImageStorage::store($thumbnailFile, 'courses');
         }
 
         if (isset($data['learning_outcomes']) && is_string($data['learning_outcomes'])) {
@@ -109,9 +107,7 @@ class CourseService
 
     public function deleteCourse(Course $course): bool
     {
-        if ($course->thumbnail && Storage::disk('public')->exists($course->thumbnail)) {
-            Storage::disk('public')->delete($course->thumbnail);
-        }
+        PublicImageStorage::delete($course->thumbnail);
 
         return $course->delete();
     }

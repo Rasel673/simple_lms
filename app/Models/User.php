@@ -96,4 +96,14 @@ class User extends Authenticatable
     {
         return $this->enrollments()->where('course_id', $courseId)->exists();
     }
+
+    public function studentProfile()
+    {
+        return $this->hasOne(StudentProfile::class);
+    }
+
+    public function staffProfile()
+    {
+        return $this->hasOne(StaffProfile::class);
+    }
 }
